@@ -187,3 +187,18 @@ MODEL_PLATFORMS:
     rerank_models: []
     speech2text_models: []
     text2speech_models: []
+  - platform_name: my_qwen
+    platform_type: custom openai
+    api_base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+    api_key: sk-ed6f835c5fb646eb9ef3911629ccc153
+    api_proxy: ''
+    api_concurrencies: 5
+    auto_detect_model: false
+    llm_models:
+      - qwen-max-0125
+    embed_models: []
+    text2image_models: []
+    image2text_models: []
+    rerank_models: []
+    speech2text_models: []
+    text2speech_models: []
