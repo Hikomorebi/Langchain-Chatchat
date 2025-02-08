@@ -22,12 +22,16 @@ def load_corpus(dir_path):
     """
     # 定义要在文本文件中查找的关键词列表
     keywords = [
-        '智能教育',
-        '大模型',
-        '机器学习',
-        '深度学习',
-        '算法',
-        '自然语言处理'
+        '动漫',
+        '动画',
+        '漫画',
+        'COSPLAY',
+        '声优',
+        '工口',
+        '同人',
+        '轻小说',
+        '二次元',
+        'ACG'
     ]
     def iter_files(path):
         """遍历位于根路径下的所有文件。"""
@@ -247,15 +251,15 @@ if __name__ == '__main__':
     # 设置临时目录用于存储WikiExtractor的输出
     temp_dir = os.path.join(Path(args.save_path).parent, 'temp')
     # 创建临时目录
-    # os.makedirs(temp_dir)
+    os.makedirs(temp_dir)
 
-    # # 使用wikiextractor从维基百科转储中提取文本，输出为JSON格式，过滤消歧义页面
-    # subprocess.run(['python', '-m',
-    #                 'wikiextractor.WikiExtractor',
-    #                 '--json', '--filter_disambig_pages', '--quiet',
-    #                 '-o', temp_dir,
-    #                 '--process', str(args.num_workers),
-    #                 args.dump_path])
+    # 使用wikiextractor从维基百科转储中提取文本，输出为JSON格式，过滤消歧义页面
+    subprocess.run(['python', '-m',
+                    'wikiextractor.WikiExtractor',
+                    '--json', '--filter_disambig_pages', '--quiet',
+                    '-o', temp_dir,
+                    '--process', str(args.num_workers),
+                    args.dump_path])
     # 载入处理后的语料库
     corpus = load_corpus(temp_dir)
 
