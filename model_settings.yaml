@@ -2,10 +2,10 @@
 
 
 # 默认选用的 LLM 名称
-DEFAULT_LLM_MODEL: qwen2.5-instruct
+DEFAULT_LLM_MODEL: qwen-plus
 
 # 默认选用的 Embedding 名称
-DEFAULT_EMBEDDING_MODEL: bge-large-zh-v1.5
+DEFAULT_EMBEDDING_MODEL: text-embedding-v3
 
 # AgentLM模型的名称 (可以不指定，指定之后就锁定进入Agent之后的Chain的模型，不指定就是 DEFAULT_LLM_MODEL)
 Agent_MODEL: ''
@@ -110,20 +110,6 @@ LLM_MODEL_CONFIG:
 # # 该平台支持的 TTS 模型列表，auto_detect_model 设为 True 时自动检测
 # text2speech_models: []
 MODEL_PLATFORMS:
-  - platform_name: xinference
-    platform_type: xinference
-    api_base_url: http://me.ilisa.team:55984/v1
-    api_key: EMPTY
-    api_proxy: ''
-    api_concurrencies: 5
-    auto_detect_model: true
-    llm_models: []
-    embed_models: []
-    text2image_models: []
-    image2text_models: []
-    rerank_models: []
-    speech2text_models: []
-    text2speech_models: []
   - platform_name: my_qwen
     platform_type: custom openai
     api_base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
@@ -132,8 +118,9 @@ MODEL_PLATFORMS:
     api_concurrencies: 5
     auto_detect_model: false
     llm_models:
-      - qwen-max-0125
-    embed_models: []
+      - qwen-plus
+    embed_models:
+      - text-embedding-v3
     text2image_models: []
     image2text_models: []
     rerank_models: []
