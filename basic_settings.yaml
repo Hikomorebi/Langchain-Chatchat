@@ -16,7 +16,7 @@ HTTPX_DEFAULT_TIMEOUT: 300.0
 KB_ROOT_PATH: /home/hkb/MyProjects/Langchain-Chatchat/knowledge_base
 
 # 知识库信息数据库连接URI
-SQLALCHEMY_DATABASE_URI: mysql+pymysql://hkb:mysql1002@47.109.178.240/learn_rag?charset=utf8mb4
+SQLALCHEMY_DATABASE_URI: mysql+pymysql://hkb:mysql1002@47.109.178.240/chatchat?charset=utf8mb4
 
 # API 是否开启跨域
 OPEN_CROSS_DOMAIN: false

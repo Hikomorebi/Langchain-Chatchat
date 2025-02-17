@@ -2,7 +2,7 @@
 
 
 # 默认选用的 LLM 名称
-DEFAULT_LLM_MODEL: qwen2.5-instruct
+DEFAULT_LLM_MODEL: deepseek-v3
 
 # 默认选用的 Embedding 名称
 DEFAULT_EMBEDDING_MODEL: bge-large-zh-v1.5
@@ -112,7 +112,7 @@ LLM_MODEL_CONFIG:
 MODEL_PLATFORMS:
   - platform_name: xinference
     platform_type: xinference
-    api_base_url: http://127.0.0.1:9997/v1
+    api_base_url: http://127.0.0.1:55984/v1
     api_key: EMPTY
     api_proxy: ''
     api_concurrencies: 5
@@ -131,39 +131,8 @@ MODEL_PLATFORMS:
     api_proxy: ''
     api_concurrencies: 5
     auto_detect_model: false
-    llm_models:
-      - qwen:7b
-      - qwen2:7b
-    embed_models:
-      - quentinz/bge-large-zh-v1.5
-    text2image_models: []
-    image2text_models: []
-    rerank_models: []
-    speech2text_models: []
-    text2speech_models: []
-  - platform_name: oneapi
-    platform_type: oneapi
-    api_base_url: http://127.0.0.1:3000/v1
-    api_key: sk-
-    api_proxy: ''
-    api_concurrencies: 5
-    auto_detect_model: false
-    llm_models:
-      - chatglm_pro
-      - chatglm_turbo
-      - chatglm_std
-      - chatglm_lite
-      - qwen-turbo
-      - qwen-plus
-      - qwen-max
-      - qwen-max-longcontext
-      - ERNIE-Bot
-      - ERNIE-Bot-turbo
-      - ERNIE-Bot-4
-      - SparkDesk
-    embed_models:
-      - text-embedding-v1
-      - Embedding-V1
+    llm_models: []
+    embed_models: []
     text2image_models: []
     image2text_models: []
     rerank_models: []
@@ -176,18 +145,14 @@ MODEL_PLATFORMS:
     api_proxy: ''
     api_concurrencies: 5
     auto_detect_model: false
-    llm_models:
-      - gpt-4o
-      - gpt-3.5-turbo
-    embed_models:
-      - text-embedding-3-small
-      - text-embedding-3-large
+    llm_models: []
+    embed_models: []
     text2image_models: []
     image2text_models: []
     rerank_models: []
     speech2text_models: []
     text2speech_models: []
-  - platform_name: my_qwen
+  - platform_name: dashscope
     platform_type: custom openai
     api_base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
     api_key: sk-ed6f835c5fb646eb9ef3911629ccc153
@@ -196,7 +161,10 @@ MODEL_PLATFORMS:
     auto_detect_model: false
     llm_models:
       - qwen-max-0125
-    embed_models: []
+      - deepseek-v3
+      - deepseek-r1
+    embed_models:
+      - text-embedding-v3
     text2image_models: []
     image2text_models: []
     rerank_models: []
