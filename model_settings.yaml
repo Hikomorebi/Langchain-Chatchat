@@ -112,7 +112,7 @@ LLM_MODEL_CONFIG:
 MODEL_PLATFORMS:
   - platform_name: xinference
     platform_type: xinference
-    api_base_url: http://127.0.0.1:55984/v1
+    api_base_url: http://127.0.0.1:9997/v1
     api_key: EMPTY
     api_proxy: ''
     api_concurrencies: 5

@@ -16,13 +16,13 @@ if __name__ == "__main__":
     is_lite = "lite" in sys.argv  # TODO: remove lite mode
 
     st.set_page_config(
-        "Langchain-Chatchat WebUI",
+        "Newhope WebUI",
         get_img_base64("chatchat_icon_blue_square_v2.png"),
         initial_sidebar_state="expanded",
         menu_items={
             "Get Help": "https://github.com/chatchat-space/Langchain-Chatchat",
             "Report a bug": "https://github.com/chatchat-space/Langchain-Chatchat/issues",
-            "About": f"""欢迎使用 Langchain-Chatchat WebUI {__version__}！""",
+            "About": f"""欢迎使用 Newhope WebUI {__version__}！""",
         },
         layout="centered",
     )
@@ -48,19 +48,19 @@ if __name__ == "__main__":
         st.image(
             get_img_base64("logo-long-chatchat-trans-v2.png"), use_column_width=True
         )
-        st.caption(
-            f"""<p align="right">当前版本：{__version__}</p>""",
-            unsafe_allow_html=True,
-        )
+        # st.caption(
+        #     f"""<p align="right">当前版本：{__version__}</p>""",
+        #     unsafe_allow_html=True,
+        # )
 
         selected_page = sac.menu(
             [
-                sac.MenuItem("多功能对话", icon="chat"),
+                # sac.MenuItem("多功能对话", icon="chat"),
                 sac.MenuItem("RAG 对话", icon="database"),
                 sac.MenuItem("知识库管理", icon="hdd-stack"),
             ],
             key="selected_page",
-            open_index=0,
+            open_index=[0],
         )
 
         sac.divider()

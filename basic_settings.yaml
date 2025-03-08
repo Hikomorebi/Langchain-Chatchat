@@ -16,7 +16,7 @@ HTTPX_DEFAULT_TIMEOUT: 300.0
 KB_ROOT_PATH: /home/hkb/MyProjects/Langchain-Chatchat/knowledge_base
 
 # 知识库信息数据库连接URI
-SQLALCHEMY_DATABASE_URI: mysql+pymysql://hkb:mysql1002@47.109.178.240/chatchat?charset=utf8mb4
+SQLALCHEMY_DATABASE_URI: mysql+pymysql://hkb:mysql1002@47.109.178.240/a100_chatchat?charset=utf8mb4
 
 # API 是否开启跨域
 OPEN_CROSS_DOMAIN: false
@@ -28,11 +28,11 @@ DEFAULT_BIND_HOST: 0.0.0.0
 # API 服务器地址。其中 public_host 用于生成云服务公网访问链接（如知识库文档链接）
 API_SERVER:
   host: 0.0.0.0
-  port: 7861
-  public_host: 127.0.0.1
-  public_port: 7861
+  port: 55104
+  public_host: 0.0.0.0
+  public_port: 55104
 
 # WEBUI 服务器地址
 WEBUI_SERVER:
   host: 0.0.0.0
-  port: 8501
+  port: 55105

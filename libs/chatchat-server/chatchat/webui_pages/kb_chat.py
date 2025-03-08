@@ -16,7 +16,6 @@ from chatchat.webui_pages.dialogue.dialogue import (save_session, restore_sessio
                                                     add_conv, del_conv, clear_conv)
 from chatchat.webui_pages.utils import *
 
-
 chat_box = ChatBox(assistant_avatar=get_img_base64("chatchat_icon_blue_square_v2.png"))
 
 
@@ -101,14 +100,12 @@ def kb_chat(api: ApiRequest):
             #     prompt_templates_kb_list,
             #     key="prompt_name",
             # )
-            prompt_name="default"
+            prompt_name = "default"
             history_len = st.number_input("历史对话轮数：", 0, 20, key="history_len")
             kb_top_k = st.number_input("匹配知识条数：", 1, 20, key="kb_top_k")
             ## Bge 模型会超过1
             score_threshold = st.slider("知识匹配分数阈值：", 0.0, 2.0, step=0.01, key="score_threshold")
             return_direct = st.checkbox("仅返回检索结果", key="return_direct")
-
-
 
             def on_kb_change():
                 st.toast(f"已加载知识库： {st.session_state.selected_kb}")
@@ -124,9 +121,9 @@ def kb_chat(api: ApiRequest):
                     )
                 elif dialogue_mode == "文件对话":
                     files = st.file_uploader("上传知识文件：",
-                                            [i for ls in LOADER_DICT.values() for i in ls],
-                                            accept_multiple_files=True,
-                                            )
+                                             [i for ls in LOADER_DICT.values() for i in ls],
+                                             accept_multiple_files=True,
+                                             )
                     if st.button("开始上传", disabled=len(files) == 0):
                         st.session_state["file_chat_id"] = upload_temp_docs(files, api)
                 elif dialogue_mode == "搜索引擎问答":
@@ -170,7 +167,7 @@ def kb_chat(api: ApiRequest):
 
     # chat input
     with bottom():
-        cols = st.columns([1, 0.2, 15,  1])
+        cols = st.columns([1, 0.2, 15, 1])
         if cols[0].button(":gear:", help="模型配置"):
             widget_keys = ["platform", "llm_model", "temperature", "system_message"]
             chat_box.context_to_session(include=widget_keys)
@@ -193,7 +190,7 @@ def kb_chat(api: ApiRequest):
             prompt_name=prompt_name,
             return_direct=return_direct,
         )
-    
+
         api_url = api_address(is_public=True)
         if dialogue_mode == "知识库问答":
             client = openai.Client(base_url=f"{api_url}/knowledge_base/local_kb/{selected_kb}", api_key="NONE")
@@ -205,7 +202,7 @@ def kb_chat(api: ApiRequest):
             if st.session_state.get("file_chat_id") is None:
                 st.error("请先上传文件再进行对话")
                 st.stop()
-            knowledge_id=st.session_state.get("file_chat_id")
+            knowledge_id = st.session_state.get("file_chat_id")
             client = openai.Client(base_url=f"{api_url}/knowledge_base/temp_kb/{knowledge_id}", api_key="NONE")
             chat_box.ai_say([
                 Markdown("...", in_expander=True, title="知识库匹配结果", state="running", expanded=return_direct),
@@ -222,7 +219,8 @@ def kb_chat(api: ApiRequest):
         first = True
 
         try:
-            for d in client.chat.completions.create(messages=messages, model=llm_model, stream=True, extra_body=extra_body):
+            for d in client.chat.completions.create(messages=messages, model=llm_model, stream=True,
+                                                    extra_body=extra_body):
                 if first:
                     chat_box.update_msg("\n\n".join(d.docs), element_index=0, streaming=False, state="complete")
                     chat_box.update_msg("", streaming=False)
@@ -240,8 +238,8 @@ def kb_chat(api: ApiRequest):
         cols = st.columns(2)
         export_btn = cols[0]
         if cols[1].button(
-            "清空对话",
-            use_container_width=True,
+                "清空对话",
+                use_container_width=True,
         ):
             chat_box.reset_history()
             rerun()
