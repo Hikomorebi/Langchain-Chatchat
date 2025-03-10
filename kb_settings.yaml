@@ -2,7 +2,7 @@
 
 
 # 默认使用的知识库
-DEFAULT_KNOWLEDGE_BASE: new_hope
+DEFAULT_KNOWLEDGE_BASE: 食品安全
 
 # 默认向量库/全文检索引擎类型
 # 可选值：['faiss', 'milvus', 'zilliz', 'pg', 'es', 'relyt', 'chromadb']

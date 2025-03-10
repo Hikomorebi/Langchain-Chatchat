@@ -122,12 +122,15 @@ async def custom_kb_chat(
             "return_direct": False
         }
     )
-
+    KB_MAPPING = {
+    "newhope": "食品安全",
+    # 更多映射...
+    }
     # 复用原有业务逻辑
     result = await kb_chat(
         query=openai_body.messages[-1]["content"],
         mode=mode,
-        kb_name=param,
+        kb_name=KB_MAPPING.get(param.lower(), param),  # 优先查映射表，无匹配则用原值,
         top_k= 3,
         score_threshold= 2.0,
         history=openai_body.messages[:-1],
