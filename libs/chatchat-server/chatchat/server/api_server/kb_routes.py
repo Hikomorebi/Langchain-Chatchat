@@ -28,9 +28,11 @@ from chatchat.server.knowledge_base.kb_summary_api import (
 from chatchat.server.utils import BaseResponse, ListResponse
 from chatchat.server.knowledge_base.kb_cache.faiss_cache import memo_faiss_pool
 
+from pydantic import BaseModel, Field
+from typing import Dict
+from json import loads
 
 kb_router = APIRouter(prefix="/knowledge_base", tags=["Knowledge Base Management"])
-
 
 @kb_router.post(
     "/{mode}/{param}/chat/completions", summary="知识库对话，openai 兼容，参数与 /chat/kb_chat 一致"
@@ -65,6 +67,83 @@ async def kb_chat_endpoint(
     )
     return ret
 
+# 新增自定义请求模型
+class CustomChatRequest(BaseModel):
+    sessionNo: str = Field(..., description="会话唯一标识")
+    content: str = Field(..., description="当前用户消息内容")
+    source: int = Field(0, description="消息来源类型")
+    time: str = Field(..., description="消息时间戳")
+    appType: int = Field(0, description="应用类型")
+    modelType: int = Field(0, description="模型类型 0-qwen-max-0125 1-deepseek-v3 2-deepseek-r1")
+    history: List[Dict[str, str]] = Field(..., description="历史对话记录")
+
+# 在现有路由中添加新端点
+@kb_router.post(
+    "/{mode}/{param}/custom_chat",
+    response_model=OpenAIChatOutput,  # 保持与原有输出格式一致
+    summary="兼容格式的知识库对话",
+    tags=["Knowledge Base Management"]
+)
+async def custom_kb_chat(
+    mode: Literal["local_kb", "temp_kb", "search_engine"],
+    param: str,
+    body: CustomChatRequest,
+    request: Request,
+):
+    # 将历史记录转换为OpenAI格式（注意role映射）
+    messages = []
+    for msg in body.history:
+        # 将原"robot"角色转换为"assistant"
+        role = "assistant" if msg["role"] == "robot" else msg["role"]
+        messages.append({"role": role, "content": msg["content"]})
+    
+    # 添加当前问题
+    messages.append({"role": "user", "content": body.content})
+
+    # 模型类型映射
+    model_map = {
+        0: "deepseek-v3",
+        1: "qwen-max-0125",
+        2: "deepseek-r1"
+        # 根据实际模型配置扩展
+    }
+
+    # 构建OpenAI兼容请求体
+    openai_body = OpenAIChatInput(
+        model=model_map.get(body.modelType, "deepseek-v3"),
+        messages=messages,
+        temperature=0.7,  # 默认参数
+        max_tokens=Settings.model_settings.MAX_TOKENS,
+        stream=True,  # 流式
+        model_extra={
+            "top_k":  3,
+            "score_threshold":  0.5,
+            "prompt_name": "default",
+            "return_direct": False
+        }
+    )
+
+    # 复用原有业务逻辑
+    result = await kb_chat(
+        query=openai_body.messages[-1]["content"],
+        mode=mode,
+        kb_name=param,
+        top_k= 3,
+        score_threshold= 2.0,
+        history=openai_body.messages[:-1],
+        stream=openai_body.stream,
+        model=openai_body.model,
+        temperature=openai_body.temperature,
+        max_tokens=openai_body.max_tokens,
+        prompt_name= "default",
+        return_direct= False,
+        request=request,
+    ) 
+     
+    if isinstance(result, str):  # 检查 result 是否为 JSON 字符串
+        result = loads(result)  # 将 JSON 字符串解析为字典
+        
+    return result
 
 kb_router.get(
     "/list_knowledge_bases", response_model=ListResponse, summary="获取知识库列表"

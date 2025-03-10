@@ -24,7 +24,7 @@ OVERLAP_SIZE: 150
 VECTOR_SEARCH_TOP_K: 3
 
 # 知识库匹配相关度阈值，取值范围在0-2之间，SCORE越小，相关度越高，取到2相当于不筛选，建议设置在0.5左右
-SCORE_THRESHOLD: 2.0
+SCORE_THRESHOLD: 0.5
 
 # 默认搜索引擎
 # 可选值：['bing', 'duckduckgo', 'metaphor', 'searx']
