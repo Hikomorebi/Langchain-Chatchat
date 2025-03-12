@@ -115,12 +115,6 @@ async def custom_kb_chat(
         temperature=0.7,  # 默认参数
         max_tokens=Settings.model_settings.MAX_TOKENS,
         stream=True,  # 流式
-        model_extra={
-            "top_k":  3,
-            "score_threshold":  0.5,
-            "prompt_name": "default",
-            "return_direct": False
-        }
     )
     KB_MAPPING = {
     "newhope": "食品安全",
@@ -130,9 +124,9 @@ async def custom_kb_chat(
     result = await kb_chat(
         query=openai_body.messages[-1]["content"],
         mode=mode,
-        kb_name=KB_MAPPING.get(param.lower(), param),  # 优先查映射表，无匹配则用原值,
-        top_k= 3,
-        score_threshold= 2.0,
+        kb_name=KB_MAPPING.get(param.lower(), param),  # 优先查映射表，无匹配则用原值
+        top_k= 3, 
+        score_threshold= 0.5,
         history=openai_body.messages[:-1],
         stream=openai_body.stream,
         model=openai_body.model,
