@@ -15,6 +15,9 @@ HTTPX_DEFAULT_TIMEOUT: 300.0
 # 知识库默认存储路径
 KB_ROOT_PATH: /home/hkb/MyProjects/Langchain-Chatchat/knowledge_base
 
+# 数据库默认存储路径。如果使用sqlite，可以直接修改DB_ROOT_PATH；如果使用其它数据库，请直接修改SQLALCHEMY_DATABASE_URI。
+DB_ROOT_PATH: /home/hkb/MyProjects/Langchain-Chatchat/data/knowledge_base/info.db
+
 # 知识库信息数据库连接URI
 SQLALCHEMY_DATABASE_URI: mysql+pymysql://hkb:mysql1002@47.109.178.240/a100_chatchat?charset=utf8mb4
 

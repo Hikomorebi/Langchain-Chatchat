@@ -131,8 +131,10 @@ MODEL_PLATFORMS:
     api_proxy: ''
     api_concurrencies: 5
     auto_detect_model: false
-    llm_models: []
-    embed_models: []
+    llm_models: 
+      - deepseek-r1:70b
+    embed_models: 
+      - nomic-embed-text:latest
     text2image_models: []
     image2text_models: []
     rerank_models: []
@@ -161,6 +163,7 @@ MODEL_PLATFORMS:
     auto_detect_model: false
     llm_models:
       - qwen-max-0125
+      - qwq-32b
       - deepseek-v3
       - deepseek-r1
     embed_models:

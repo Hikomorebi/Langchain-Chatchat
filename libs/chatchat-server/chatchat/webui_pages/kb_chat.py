@@ -16,7 +16,7 @@ from chatchat.webui_pages.dialogue.dialogue import (save_session, restore_sessio
                                                     add_conv, del_conv, clear_conv)
 from chatchat.webui_pages.utils import *
 
-chat_box = ChatBox(assistant_avatar=get_img_base64("chatchat_icon_blue_square_v2.png"))
+chat_box = ChatBox(assistant_avatar=get_img_base64("政府机构.png"))
 
 
 def init_widgets():
